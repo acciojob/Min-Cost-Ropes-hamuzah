@@ -3,19 +3,29 @@ function mincost(arr)
 //write your code here
 // return the min cost
 
-	let heap = new MinPriorityQueue();
-	let total = 0;
+  // Sort the array in ascending order
+    arr.sort((a, b) => a - b);
 
-	for(let a of arr){
-		heap.enqueue(a);
-	}
+    let totalCost = 0;
 
-	while(heap.size() > 1){
-		let diff = heap.dequeue().element + heap.dequeue().element;
-		total += diff;
-	}
+    while (arr.length > 1) {
+        // Take the two smallest ropes
+        const first = arr.shift();
+        const second = arr.shift();
 
-	return total;
+        // Calculate the cost to combine them
+        const cost = first + second;
+        totalCost += cost;
+
+        // Insert the combined rope back into the array
+        arr.push(cost);
+
+        // Sort the array again
+        arr.sort((a, b) => a - b);
+    }
+
+    return totalCost;
+	
 }
 
 module.exports=mincost;
